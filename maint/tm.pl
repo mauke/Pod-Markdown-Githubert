@@ -1,4 +1,4 @@
-use strict;
+use v5.12.0;
 use warnings;
 
 my $tmpl_file;
@@ -16,7 +16,7 @@ my %tmpl_var = (
 my $output = '';
 while (my $line = readline $fh) {
     $line =~ s{<\?php echo \h*(.*?)\h*; \?>}{
-        $tmpl_var{$1} || die "Unknown template parameter '$1'";
+        $tmpl_var{$1} // die "Unknown template parameter '$1'";
     }eg;
     $output .= $line;
 }
