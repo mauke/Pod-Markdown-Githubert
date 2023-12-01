@@ -28,7 +28,7 @@ jobs:
         with:
           perl-version: ${{ matrix.perl-version }}
       - name: "Create perl fingerprint file"
-        run: perl -MConfig -wE 'say for sprintf(q{%vd}, $^V), Config::bincompat_options' > perl-fingerprint
+        run: perl -MConfig -wle 'print for sprintf(q{%vd}, $^V), Config::bincompat_options' > perl-fingerprint
       - name: "Cache CPAN fragments"
         uses: actions/cache@v3
         with:
