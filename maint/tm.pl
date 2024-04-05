@@ -1,5 +1,4 @@
-use v5.10;
-use strict;
+use v5.12.0;
 use warnings;
 
 my $tmpl_file;
