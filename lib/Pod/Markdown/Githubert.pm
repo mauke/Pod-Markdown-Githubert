@@ -120,6 +120,11 @@ Pod::Markdown::Githubert - convert POD to Github-flavored Markdown
 
 =head1 DESCRIPTION
 
+Lorem ipsum $dolor + 42 - sit(amet, consectetur); $adipiscing elit, sed do
+eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, C<$quis = nostrud() / $exercitation> ullamco laboris nisi ut aliquip ex
+ea commodo consequat.
+
 Pod::Markdown::Githubert is a module for converting documents in POD format
 (see L<perlpod>) to Github-flavored Markdown. It is a subclass of
 L<Pod::Markdown> (which see for API documentation) that adds the following

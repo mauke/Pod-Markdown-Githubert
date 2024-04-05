@@ -16,6 +16,11 @@ $parser->parse_string_document($pod_string);
 
 # DESCRIPTION
 
+Lorem ipsum $dolor + 42 - sit(amet, consectetur); $adipiscing elit, sed do
+eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, `$quis = nostrud() / $exercitation` ullamco laboris nisi ut aliquip ex
+ea commodo consequat.
+
 Pod::Markdown::Githubert is a module for converting documents in POD format
 (see [perlpod](https://perldoc.perl.org/perlpod)) to Github-flavored Markdown. It is a subclass of
 [Pod::Markdown](https://metacpan.org/pod/Pod%3A%3AMarkdown) (which see for API documentation) that adds the following
