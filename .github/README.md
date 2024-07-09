@@ -50,9 +50,9 @@ language" setting, which is applied to every verbatim paragraph. Initially the
 "current language" is empty, which just produces ordinary ```` ``` ```` code blocks.
 
     A `=for highlighter language=FOO` paragraph sets the "current language" to
-    _FOO_. (More specifically, you can put multiple _KEY=VALUE_ options in a
+    *FOO*. (More specifically, you can put multiple *KEY=VALUE* options in a
     `=for highlighter` paragraph, but this module only looks at the `language`
-    option.) If you only want to set the "current language" to _FOO_, you can also
+    option.) If you only want to set the "current language" to *FOO*, you can also
     write `=for highlighter FOO` (that is, `language` is the default option).
 
     The "current language" is applied to all following verbatim paragraphs and
@@ -90,6 +90,13 @@ language" setting, which is applied to every verbatim paragraph. Initially the
     ```
     ````
 
+- `$` characters are escaped in plain text segments because otherwise Github
+will try to render any random text that happens to sit between two dollar signs
+as TeX-style math.
+- Text in italics is rendered using `*`, not `_`. This is because Github
+displays `_N_th` verbatim as "\_N\_th", but `*N*th` as "*N*th". The latter is
+what we want for POD like `I<N>th`.
+
 # SEE ALSO
 
 [Pod::Markdown](https://metacpan.org/pod/Pod%3A%3AMarkdown), [perlpod](https://perldoc.perl.org/perlpod)
@@ -100,7 +107,7 @@ Lukas Mai, `<lmai at web.de>`
 
 # COPYRIGHT & LICENSE
 
-Copyright 2023 Lukas Mai.
+Copyright 2023-2024 Lukas Mai.
 
 This module is free software; you can redistribute it and/or modify it under
 the terms of either: the GNU General Public License as published by the Free
