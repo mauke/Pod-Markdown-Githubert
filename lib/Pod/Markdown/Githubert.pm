@@ -5,7 +5,7 @@ use warnings;
 use Pod::Markdown ();
 our @ISA = 'Pod::Markdown';
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 sub new {
     my $class = shift;
