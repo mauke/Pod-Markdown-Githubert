@@ -70,20 +70,30 @@ __EOT__
         }
     }
 
+    $opt->{MIN_PERL_VERSION} ||= '5.6.0';
+    my ($perl_ver_min, $perl_subver_min) = $opt->{MIN_PERL_VERSION} =~ /\A5\.(\d{1,3})\.(\d{1,3})\z/
+        or die "Can't parse MIN_PERL_VERSION '$opt->{MIN_PERL_VERSION}'";
+
+    for ($opt->{DEVELOP_REQUIRES}{'Pod::Markdown'}) {
+        $_ = '3.005' if !$_ || $_ < 3.005;
+    }
+    for ($opt->{DEVELOP_REQUIRES}{'Pod::Text'}) {
+        $_ = '4.09' if !$_ || $_ < 4.09;
+        if ($perl_ver_min < 12) {
+            $perl_ver_min = 12;
+            $perl_subver_min = 0;
+            $opt->{MIN_PERL_VERSION} = "5.$perl_ver_min.$perl_subver_min";
+        }
+    }
+
     my $perl_ver_max = do {
         my $v = sprintf '%vd', $^V;
         $v =~ /\A5\.(\d{1,3})\./ or die "Can't parse \$^V '$v'";
         $1
     };
-    my $perl_ver_min = 6;
 
     my $perl_pattern = '*';
-    if ($opt->{MIN_PERL_VERSION}) {
-        my ($ver, $subver) = $opt->{MIN_PERL_VERSION} =~ /\A5\.(\d{1,3})\.(\d{1,3})\z/
-            or die "Can't parse MIN_PERL_VERSION '$opt->{MIN_PERL_VERSION}'";
-
-        $perl_ver_min = $ver;
-
+    {
         my $genverpat = sub {
             my ($num, $width) = @_;
             $num = sprintf '%0*d', $width, $num
@@ -109,9 +119,9 @@ __EOT__
             '{' . join(',', reverse @pat) . '}'
         };
 
-        my $pat = $genverpat->($ver + ($subver != 0), 3) . '.[0-9]';
-        if ($subver) {
-            $pat = "{$ver." . $genverpat->($subver, 3) . ",$pat}";
+        my $pat = $genverpat->($perl_ver_min + ($perl_subver_min != 0), 3) . '.[0-9]';
+        if ($perl_subver_min) {
+            $pat = "{$perl_ver_min." . $genverpat->($perl_subver_min, 3) . ",$pat}";
         }
 
         $perl_pattern = "*5.$pat*";
@@ -174,10 +184,4 @@ __EOT__
 
     $opt->{postamble}{text} .= $readme . $github_tests
         unless $^O eq 'MSWin32' || defined $ENV{GITHUB_ACTIONS};
-    for ($opt->{DEVELOP_REQUIRES}{'Pod::Markdown'}) {
-        $_ = '3.005' if !$_ || $_ < '3.005';
-    }
-    for ($opt->{DEVELOP_REQUIRES}{'Pod::Text'}) {
-        $_ = '4.09'  if !$_ || $_ < '4.09';
-    }
 }
