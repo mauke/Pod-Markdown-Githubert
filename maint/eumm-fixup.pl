@@ -74,8 +74,8 @@ __EOT__
     my ($perl_ver_min, $perl_subver_min) = $opt->{MIN_PERL_VERSION} =~ /\A5\.(\d{1,3})\.(\d{1,3})\z/
         or die "Can't parse MIN_PERL_VERSION '$opt->{MIN_PERL_VERSION}'";
 
-    for ($opt->{DEVELOP_REQUIRES}{'Pod::Markdown'}) {
-        $_ = '3.005' if !$_ || $_ < 3.005;
+    for ($opt->{DEVELOP_REQUIRES}{'Pod::Markdown::Githubert'}) {
+        $_ = '0.03' if !$_ || $_ < 0.03;
     }
     for ($opt->{DEVELOP_REQUIRES}{'Pod::Text'}) {
         $_ = '4.09' if !$_ || $_ < 4.09;
